@@ -57,16 +57,13 @@
    منطقي إن نفس اللينك يفتح بشكلين مختلفين عند شخصين.
    «حديقة» نهارية: عاجي وذهب على ضوء النهار. */
 (function(){
-  var t;
-  try{ t = localStorage.getItem('inv-theme'); }catch(e){}
-  if(t!=='dark' && t!=='light') t = 'light';
-  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-theme', 'dark');
 })();
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=El+Messiri:wght@400;500;600&family=Almarai:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=El+Messiri:wght@400;500;600&family=Almarai:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Pinyon+Script&display=swap" rel="stylesheet">
 
 <style>
 /* ════════════════ 1. TOKENS — الوضع الفاتح (default) ════════════════ */
@@ -115,7 +112,7 @@
   --f-head:'El Messiri', sans-serif;
   --f-body:'Almarai', sans-serif;
   --f-lat:'Cormorant Garamond', serif;
-  --f-script:'Playfair Display', serif;
+  --f-script:'Pinyon Script', cursive;
 
   /* مقاسات */
   --sp:clamp(58px, 11vw, 130px);
@@ -807,7 +804,7 @@ label .opt{font-family:var(--f-body);font-size:11px;letter-spacing:0;color:var(-
    Aref Ruqaa (--f-name) is an Arabic calligraphic face — it stays on the
    Quranic ayah, which remains Arabic. The couple's Latin names use an
    elegant script face instead, wherever they appear on the page. */
-.names,.outro-names,.seal-btn span,#coupleNames{font-family:var(--f-script);font-style:italic;font-weight:600}
+.names,.outro-names,.seal-btn span,#coupleNames{font-family:var(--f-script);font-style:normal;font-weight:400}
 #coupleNames{font-size:clamp(30px,7.5vw,44px)}
 .outro-names{line-height:1.4}
 </style>
@@ -837,13 +834,6 @@ label .opt{font-family:var(--f-body);font-size:11px;letter-spacing:0;color:var(-
 <audio id="audio" loop preload="none"></audio>
 
 <div class="fabs">
-  <button id="theme" class="fab" aria-label="Toggle light and dark mode" aria-pressed="false">
-    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-      <g class="i-sun"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.4v2.3M12 19.3v2.3M21.6 12h-2.3M4.7 12H2.4M18.8 5.2 17.2 6.8M6.8 17.2 5.2 18.8M18.8 18.8 17.2 17.2M6.8 6.8 5.2 5.2"/></g>
-      <path class="i-moon" d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9Z"/>
-    </svg>
-  </button>
   <button id="mus" class="fab off" aria-label="Play or pause music" aria-pressed="false" hidden>
     <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
   </button>
@@ -1397,18 +1387,8 @@ function buildStars(){
 }
 buildStars();
 
-/* ═══════════════ 🌓 THEME ═══════════════ */
-const themeBtn = $('#theme');
-function applyTheme(t,save){
-  root.setAttribute('data-theme',t);
-  themeBtn.setAttribute('aria-pressed', t==='dark' ? 'true':'false');
-  if(save){ try{ localStorage.setItem('inv-theme',t) }catch(e){} }
-  readAtmosphere();
-}
-applyTheme(root.getAttribute('data-theme'),false);
-themeBtn.addEventListener('click',()=>{
-  applyTheme(root.getAttribute('data-theme')==='dark' ? 'light':'dark', true);
-});
+/* ═══════════════ 🌓 THEME (dark mode only) ═══════════════ */
+readAtmosphere();
 
 /* ═══════════════ RENDER من CFG ═══════════════ */
 (function render(){
